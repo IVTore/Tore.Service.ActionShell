@@ -22,17 +22,22 @@ namespace Tore.Service {
     /*————————————————————————————————————————————————————————————————————————————
         CLASS:  RequestScopeBase
         USAGE:  Class to contain request data required. 
-                Passed to EnterAction, LeaveAction.
+                Passed to ActionShell.enter, ActionShell.leave.
                 Can be used in GlobalExceptionMiddleware.ExceptionResponder too.
                 Extend this according to project requirements.
-    ————————————————————————————————————————————————————————————————————————————*/  
+    ————————————————————————————————————————————————————————————————————————————*/
     public class RequestScopeBase {
-        public string routerPath { get; set; }          // Router path.
-        public string actionName { get; set; }          // Action name.
-        public bool modelValid { get; set; }            // Model state validity.
-        public bool leftAction { get; set; } = false;   // Left action properly.
+        /// <summary> Router Path (request path). </summary>
+        public string routerPath { get; set; }
+        /// <summary> Action name. </summary>
+        public string actionName { get; set; }
+        /// <summary> Model validity status. </summary>
+        public bool modelValid { get; set; }
+        /// <summary> Left action. </summary>
+        public bool leftAction { get; set; } = false; 
+        /// <summary> Current controller instance about to be invoked. </summary>
         [JsonIgnore]                                    // Maybe logged in json.
-        public ControllerBase controller { get; set; }  // Controller.
+        public ControllerBase controller { get; set; }
         
         public RequestScopeBase(ActionExecutingContext context){
             routerPath = context.HttpContext.Request.Path;
