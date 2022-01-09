@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ActionShell</name>
+    </assembly>
+    <members>
+        <member name="T:Tore.Service.ActionShell">
+            ———————————————————————————————————————————————————————————————————————————
+                    CLASS:  ActionShell.                                            <summary>
+                    USAGE:  Builds a request scoped context data.
+                            enter delegate is called before entry to endpoint.
+                            leave delegate is called after  endpoint is run.
+                            The request scope is passed to these delegates and since
+                            it is also stored into HttpContext, it is accessible from the 
+                            controller and even Global exception middleware in case of 
+                            any exceptions.                                         </summary>
+                ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="T:Tore.Service.ActionShell.OnEnterDelegate">
+            ———————————————————————————————————————————————————————————————————————————
+                      TYPE:  OnEnterDelegate                                            <summary>
+                      TASK:  Method delegate type to call before entry to endpoint.     <br/>
+                      ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="T:Tore.Service.ActionShell.OnLeaveDelegate">
+            ———————————————————————————————————————————————————————————————————————————
+                      TYPE:  OnLeaveDelegate                                            <summary>
+                      TASK:  Method delegate type to call after leaving the endpoint.   <br/>
+                      ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="P:Tore.Service.ActionShell.enter">
+            ———————————————————————————————————————————————————————————————————————————
+                      PROP: enter.                                                  <summary>
+                      TASK: Method delegate to call before entry to endpoint.       <br/>
+                            Method delegate type must be OnEnterDelegate.           <br/>
+                            The method should be static.                            </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="P:Tore.Service.ActionShell.leave">
+            ———————————————————————————————————————————————————————————————————————————
+                      PROP: leave.                                                  <summary>
+                      TASK: Method delegate to call after leaving the endpoint.     <br/>
+                            Method delegate type must be OnLeaveDelegate.           <br/>
+                            The method should be static.                            </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="P:Tore.Service.ActionShell.requestScopeType">
+            ———————————————————————————————————————————————————————————————————————————
+                      PROP: requestScopeType.                                       <summary>
+                      TASK: This must be a descendant of class RequestScopeBase.    <br/>
+                            This allows developers to define a class that gathers   <br/>
+                            data tailored for the project from the context.         <br/>
+                            Instance will be created by OnActionExecuting,          <br/>
+                            Just before ActionShell.enter is called.                <para/>
+                            This is an assignment because attribute classes does not<br/>
+                            allow generics.                                         </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="M:Tore.Service.ActionShell.fetchScope(Microsoft.AspNetCore.Http.HttpContext)">
+            ———————————————————————————————————————————————————————————————————————————
+                      FUNC: fetchScope                                              <summary>
+                      TASK: Accesses to scope data stored in HttpContext.           <br/>
+                      ARGS: httpContext : HttpContext      : Current http context.  <br/>
+                      RETV:             : RequestScopeBase : Scope if any or null.  </summary>
+                    ————————————————————————————————————————————————————————————————————————————
+        </member>
+        <member name="M:Tore.Service.ActionShell.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tore.Service.ActionShell.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tore.Service.RequestScopeBase.routerPath">
+            <summary> Router Path (request path). </summary>
+        </member>
+        <member name="P:Tore.Service.RequestScopeBase.actionName">
+            <summary> Action name. </summary>
+        </member>
+        <member name="P:Tore.Service.RequestScopeBase.modelValid">
+            <summary> Model validity status. </summary>
+        </member>
+        <member name="P:Tore.Service.RequestScopeBase.leftAction">
+            <summary> Left action. </summary>
+        </member>
+        <member name="P:Tore.Service.RequestScopeBase.controller">
+            <summary> Current controller instance about to be invoked. </summary>
+        </member>
+    </members>
+</doc>
