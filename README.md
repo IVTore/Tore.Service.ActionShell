@@ -75,9 +75,9 @@ The methods should be bound as:
 Binding to controllers:
 ```C#
     [ApiController]
-    [ActionShell] // <-- Easy peasy.
+    [ActionShell] // <-- Easy.
     public class TheSuperDuperController: ControllerBase {
-        // The super duper controller thingys here.
+        // The super duper controller things here.
     }
 ```
 
