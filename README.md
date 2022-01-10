@@ -13,6 +13,7 @@ Dependencies: <br/>
 A standard action filter attribute class for .Net 5 web API <br/>
 
 Why?<br/>
+
 * Bored of writing the same thing every time for services.
 * This code contains the common behaviour of an action filter attribute.
 * Having project dependent request scope data is so good.
@@ -58,24 +59,36 @@ Add bindings at service configure method:
   }
 ```
 
-An exception responder method must be defined to generate the responses.
-It should be a delegate of type:
+The enter and leave methods are not mandatory.<br/>
+They receive scope object which is RequestScopeBase descendant as parameter.<br/>
+So if defined they should be a delegate of type:
 ```C#
-public delegate void ExceptionResponderDelegate(HttpContext context, Exception exception);
+public delegate void ActionShellDelegate(RequestScopeBase scope);
 ```
 
-The method should be bound as:
+The methods should be bound as:
 ```C#
-    GlobalExceptionMiddleWare.ExceptionResponder = SomeClass.AStaticMethodToRespondException;
+    ActionShell.enter = SomeClass.aStaticMethodToCallBeforeEnteringEndpoint;
+    ActionShell.leave = SomeClass.aStaticMethodToCallAfterLeavingEndpoint;
 ```
 
-The delegated method has full view of current request's http context and exception.<br/>
-The method can modify context.response object, and also optionally write the response and return. <br/>
-Whether the method writes the response or not, the middleware issues a 
+## RequestScopeBase :
+
+To generate project oriented request information, developers must extend the RequestScopeBase class. 
+It already collects : 
+
 ```C#
-context.response.CompleteAsync()
+public class ExampleRequestScopeClass : RequestScopeBase {
+    public string ipAddress {get; private set;} // Let's say we need IP address of requester.
+    // other things needed...
+    
+    public ExampleRequestScopeClass(ActionExecutingContext context):base(context){
+        ipAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
+        /// collect other data needed.
+    }
+}
 ```
-flushing the response.
+
 
 ---
 
