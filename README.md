@@ -74,11 +74,16 @@ The methods should be bound as:
 
 Binding to controllers:
 ```C#
+using Tore.Service; // <-- Needed.
+
+namespace RocketScience.Project.Controllers {
+
     [ApiController]
     [ActionShell] // <-- Easy.
     public class TheSuperDuperController: ControllerBase {
         // The super duper controller things here.
     }
+}
 ```
 
 
