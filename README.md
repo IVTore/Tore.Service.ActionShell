@@ -20,14 +20,14 @@ Why?<br/>
 * I can gather any data requied and process it and/or check sessions, access caches, databases, get the IP's etc.
 <br/>
 In the multi tenant server mode (Kestrel default) each request arriving is processed in its own thread,<br/>
-the request context is built, then the target controller instance is created.<br/>
+The request context is built, then the target controller instance is created.<br/>
 If there are action filters:<br/>
 Filter OnActionExecuting methods are called before the endpoint is invoked and,<br/>
 Filter OnActionExecuted methods are called after the endpoint is left.<br/>
 <br/>
 ActionShell class as a filter attribute:<br/>
 
-* Constructs a developer defined object descendant of RequestScopeBase class gathering request data.
+* Constructs a developer defined object descendant of RequestScopeBase class gathering request scope data.
 * Stores the scope in HttpContext.
 * Before endpoint invocation, calls ActionShell.enter delegate if bound, with scope.
 * After endpoint completion, calls ActionShell.leave delegate if bound, with scope.
@@ -86,7 +86,7 @@ Binding to controllers:
 ## RequestScopeBase :
 
 To generate project oriented request information, developers must extend the RequestScopeBase class. <br/>
-It already collects : <br/>
+It is already populated as follows : <br/>
 
 ```C#
     routerPath = context.HttpContext.Request.Path;
@@ -99,11 +99,11 @@ It already collects : <br/>
 Here is an example, additionally collecting the IP address of the client:
 
 ```C#
-public class ExampleRequestScopeClass : RequestScopeBase {
+public class ExampleRequestScope : RequestScopeBase {
     public string ipAddress {get; private set;} = null // We will store IP address of requester here.
     // other things needed...
     
-    public ExampleRequestScopeClass(ActionExecutingContext context):base(context){
+    public ExampleRequestScope(ActionExecutingContext context):base(context){
         ipAddress = context.HttpContext.Connection.RemoteIpAddress?.ToString();
         /// collect other data needed.
     }
@@ -111,8 +111,15 @@ public class ExampleRequestScopeClass : RequestScopeBase {
 ```
 For the extended class to take control it has to be assigned like this: <br/>
 ```C#
-    ActionShell.requestScopeType = typeof(ExampleRequestScopeClass);
+    ActionShell.requestScopeType = typeof(ExampleRequestScope);
 ```
+
+Wherever HttpContext object is accessible then scope is accessible via:
+```C#
+    var ctx = Somewhere.to.obtain.HttpContext;
+    var scope = (ExampleRequestScope)ActionShell.fetchScope(ctx);
+```
+
 
 ---
 
