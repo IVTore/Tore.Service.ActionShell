@@ -33,32 +33,26 @@ namespace Tore.Service {
         private static Type _requestScopeType = typeof(RequestScopeBase);
 
         /**———————————————————————————————————————————————————————————————————————————
-          TYPE:  OnEnterDelegate                                            <summary>
-          TASK:  Method delegate type to call before entry to endpoint.     <br/>
+          TYPE:  ActionShellDelegate                                        <summary>
+          TASK:  Method delegate type to call before and after endpoint.    <br/>
           ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public delegate void OnEnterDelegate(RequestScopeBase scope);
-        /**———————————————————————————————————————————————————————————————————————————
-          TYPE:  OnLeaveDelegate                                            <summary>
-          TASK:  Method delegate type to call after leaving the endpoint.   <br/>
-          ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
-        ————————————————————————————————————————————————————————————————————————————*/
-        public delegate void OnLeaveDelegate(RequestScopeBase scope);
-
+        public delegate void ActionShellDelegate(RequestScopeBase scope);
+       
         /**———————————————————————————————————————————————————————————————————————————
           PROP: enter.                                                  <summary>
           TASK: Method delegate to call before entry to endpoint.       <br/>
-                Method delegate type must be OnEnterDelegate.           <br/>
+                Method delegate type must be ActionShellDelegate.       <br/>
                 The method should be static.                            </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public static OnEnterDelegate enter {get; set;}
+        public static ActionShellDelegate enter {get; set;}
         /**———————————————————————————————————————————————————————————————————————————
           PROP: leave.                                                  <summary>
           TASK: Method delegate to call after leaving the endpoint.     <br/>
-                Method delegate type must be OnLeaveDelegate.           <br/>
+                Method delegate type must be ActioShellDelegate.        <br/>
                 The method should be static.                            </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public static OnLeaveDelegate leave {get; set;}
+        public static ActionShellDelegate leave {get; set;}
 
         /**———————————————————————————————————————————————————————————————————————————
           PROP: requestScopeType.                                       <summary>
