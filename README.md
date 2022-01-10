@@ -76,7 +76,7 @@ Binding to controllers:
 ```C#
 using Tore.Service; // <-- Needed.
 
-namespace RocketScience.Project.Controllers {
+namespace WorldDomination.Secret.Project.Controllers {
 
     [ApiController]
     [ActionShell] // <-- Easy.
