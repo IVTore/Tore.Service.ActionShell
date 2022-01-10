@@ -6,7 +6,7 @@ Nuget package: [Tore.Service.ActionShell](https://www.nuget.org/packages/Tore.Se
 
 Dependencies: <br/>
 &emsp; net5.0 <br/>
-&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (>= 5.0.10) [Please refer to note 4 below]<br/>
+&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (>= 5.0.10) [Please refer to note 2 below]<br/>
 
 ## ActionShell :
 
@@ -72,14 +72,35 @@ The methods should be bound as:
     ActionShell.leave = SomeClass.aStaticMethodToCallAfterLeavingEndpoint;
 ```
 
+Binding to controllers:
+```C#
+    [ApiController]
+    [ActionShell] // <-- Easy peasy.
+    public class TheSuperDuperController: ControllerBase {
+        // The super duper controller thingys here.
+    }
+```
+
+
+
 ## RequestScopeBase :
 
-To generate project oriented request information, developers must extend the RequestScopeBase class. 
-It already collects : 
+To generate project oriented request information, developers must extend the RequestScopeBase class. <br/>
+It already collects : <br/>
+
+```C#
+    routerPath = context.HttpContext.Request.Path;
+    actionName = context.ActionDescriptor.RouteValues["Action"];
+    modelValid = context.ModelState.IsValid;
+    controller = (ControllerBase)context.Controller;
+    leftAction = false;   // this is set to true at OnActionExecuted.
+```
+
+Here is an example, additionally collecting the IP address of the client:
 
 ```C#
 public class ExampleRequestScopeClass : RequestScopeBase {
-    public string ipAddress {get; private set;} // Let's say we need IP address of requester.
+    public string ipAddress {get; private set;} = null // We will store IP address of requester here.
     // other things needed...
     
     public ExampleRequestScopeClass(ActionExecutingContext context):base(context){
@@ -88,36 +109,19 @@ public class ExampleRequestScopeClass : RequestScopeBase {
     }
 }
 ```
-
+For the extended class to take control it has to be assigned like this: <br/>
+```C#
+    ActionShell.requestScopeType = typeof(ExampleRequestScopeClass);
+```
 
 ---
 
 **Notes:**<br/>
 <br/>
-1] ExceptionResponder should not raise an exception under any conditions.<br/>
-&emsp; It would be like a fire extinguisher catching fire.<br/>
-
-2] If developer exception page is required during development: <br/>
-&emsp; Add <br/>
-```C#
-    GlobalExceptionMiddleWare.ExceptionResponder = SomeClass.AStaticMethodToRespondException;
-    app.UseMiddleware<GlobalExceptionMiddleware>();
-```
-&emsp; Before <br/>
-
-```C#
-    app.UseDeveloperExceptionPage();
-```
-
-&emsp; That way developer exception page overrides the global exception middleware.<br/>
-    <br/>
-3] This setup does not handle invalid routes. <br/>
-&emsp; For that, invalid routes must be re-routed to a controller endpoint, <br/>
-&emsp; If that endpoint raises exception, then GlobalExceptionMiddleware is activated.<br/>
+1] ActionShell assignments should be done at configuration.<br/>
+&emsp; After service starts, since system goes multithreading, do not change assignments.<br/>
+&emsp; Turkish proverb :While crossing the river, you do not switch horses...<br/>
 <br/>
-4] Why Microsoft.AspNetCore.Mvc.NewtonsoftJson? <br/>
+2] Why Microsoft.AspNetCore.Mvc.NewtonsoftJson? <br/>
 &emsp; Weirdly enough default http abstractions miss some methods like HttpResponse.CloseAsync().<br/>
 &emsp; So it saves me from a lot of class chasings and abstractions and I use it in my API's anyway.
-
-
-A controller action filter with nice features.  
