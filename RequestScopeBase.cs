@@ -12,19 +12,18 @@ License             : MIT.
 History             :
 202201070900: IVT   : added.
 ————————————————————————————————————————————————————————————————————————————*/
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 
 namespace Tore.Service {
 
-    /*————————————————————————————————————————————————————————————————————————————
-        CLASS:  RequestScopeBase
-        USAGE:  Class to contain request data required. 
-                Passed to ActionShell.enter, ActionShell.leave.
-                Can be used in GlobalExceptionMiddleware.ExceptionResponder too.
-                Extend this according to project requirements.
+    /**———————————————————————————————————————————————————————————————————————————
+        CLASS:  RequestScopeBase                                        <summary>
+        USAGE:  Class to contain request data required.                 <br/>
+                Passed to ActionShell.enter, ActionShell.leave.         <br/>
+                Can be used in anywhere accessing current HttpContext.  <br/>
+                Extend this according to project requirements.          </summary>
     ————————————————————————————————————————————————————————————————————————————*/
     public class RequestScopeBase {
         /// <summary> Router Path (request path). </summary>
@@ -38,7 +37,14 @@ namespace Tore.Service {
         /// <summary> Current controller instance about to be invoked. </summary>
         [JsonIgnore]                                    // Maybe logged in json.
         public ControllerBase controller { get; set; }
-        
+        /**——————————————————————————————————————————————————————————————————————————
+          CTOR: RequestScopeBase                                            <summary>
+          TASK:                                                             <br/>
+                Constructs a RequestScopeBase object.                       <br/>
+                This is called per request by ActionShell.OnActionExecuting.<br/>
+          ARGS: context : ActionExecutingContext :
+                Current action context.                                     </summary>
+        ————————————————————————————————————————————————————————————————————————————*/
         public RequestScopeBase(ActionExecutingContext context){
             routerPath = context.HttpContext.Request.Path;
             actionName = context.ActionDescriptor.RouteValues["Action"];
@@ -46,4 +52,5 @@ namespace Tore.Service {
             controller = (ControllerBase)context.Controller;
         }
     }
+
 }
