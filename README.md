@@ -127,7 +127,7 @@ Wherever HttpContext object is accessible then scope is accessible via:
 <br/>
 1] ActionShell assignments should be done at configuration.<br/>
 &emsp; After service starts, since system goes multithreading, do not change assignments.<br/>
-&emsp; Turkish proverb :While crossing the river, you do not switch horses...<br/>
+&emsp; Turkish proverb :While crossing the river, one does not switch horses...<br/>
 <br/>
 2] Why Microsoft.AspNetCore.Mvc.NewtonsoftJson? <br/>
 &emsp; Weirdly enough default http abstractions miss some methods.<br/>
