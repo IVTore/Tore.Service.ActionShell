@@ -130,5 +130,5 @@ Wherever HttpContext object is accessible then scope is accessible via:
 &emsp; Turkish proverb :While crossing the river, you do not switch horses...<br/>
 <br/>
 2] Why Microsoft.AspNetCore.Mvc.NewtonsoftJson? <br/>
-&emsp; Weirdly enough default http abstractions miss some methods like HttpResponse.CloseAsync().<br/>
+&emsp; Weirdly enough default http abstractions miss some methods.<br/>
 &emsp; So it saves me from a lot of class chasings and abstractions and I use it in my API's anyway.
