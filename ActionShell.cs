@@ -30,7 +30,7 @@ namespace Tore.Service {
     ————————————————————————————————————————————————————————————————————————————*/
     public class ActionShell : ActionFilterAttribute {
 
-        private static Type _requestScopeType = typeof(RequestScopeBase);
+        private static Type _requestScopeType = typeof(RequestScopeBase); // Default.
 
         /**———————————————————————————————————————————————————————————————————————————
           TYPE:  ActionShellDelegate                                        <summary>

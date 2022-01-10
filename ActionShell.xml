@@ -16,17 +16,10 @@
                             any exceptions.                                         </summary>
                 ————————————————————————————————————————————————————————————————————————————
         </member>
-        <member name="T:Tore.Service.ActionShell.OnEnterDelegate">
+        <member name="T:Tore.Service.ActionShell.ActionShellDelegate">
             ———————————————————————————————————————————————————————————————————————————
-                      TYPE:  OnEnterDelegate                                            <summary>
-                      TASK:  Method delegate type to call before entry to endpoint.     <br/>
-                      ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
-                    ————————————————————————————————————————————————————————————————————————————
-        </member>
-        <member name="T:Tore.Service.ActionShell.OnLeaveDelegate">
-            ———————————————————————————————————————————————————————————————————————————
-                      TYPE:  OnLeaveDelegate                                            <summary>
-                      TASK:  Method delegate type to call after leaving the endpoint.   <br/>
+                      TYPE:  ActionShellDelegate                                        <summary>
+                      TASK:  Method delegate type to call before and after endpoint.    <br/>
                       ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
                     ————————————————————————————————————————————————————————————————————————————
         </member>
@@ -34,7 +27,7 @@
             ———————————————————————————————————————————————————————————————————————————
                       PROP: enter.                                                  <summary>
                       TASK: Method delegate to call before entry to endpoint.       <br/>
-                            Method delegate type must be OnEnterDelegate.           <br/>
+                            Method delegate type must be ActionShellDelegate.       <br/>
                             The method should be static.                            </summary>
                     ————————————————————————————————————————————————————————————————————————————
         </member>
@@ -42,7 +35,7 @@
             ———————————————————————————————————————————————————————————————————————————
                       PROP: leave.                                                  <summary>
                       TASK: Method delegate to call after leaving the endpoint.     <br/>
-                            Method delegate type must be OnLeaveDelegate.           <br/>
+                            Method delegate type must be ActioShellDelegate.        <br/>
                             The method should be static.                            </summary>
                     ————————————————————————————————————————————————————————————————————————————
         </member>
@@ -72,6 +65,15 @@
         <member name="M:Tore.Service.ActionShell.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
             <inheritdoc/>
         </member>
+        <member name="T:Tore.Service.RequestScopeBase">
+            ———————————————————————————————————————————————————————————————————————————
+                    CLASS:  RequestScopeBase                                        <summary>
+                    USAGE:  Class to contain request data required.                 <br/>
+                            Passed to ActionShell.enter, ActionShell.leave.         <br/>
+                            Can be used in anywhere accessing current HttpContext.  <br/>
+                            Extend this according to project requirements.          </summary>
+                ————————————————————————————————————————————————————————————————————————————
+        </member>
         <member name="P:Tore.Service.RequestScopeBase.routerPath">
             <summary> Router Path (request path). </summary>
         </member>
@@ -86,6 +88,16 @@
         </member>
         <member name="P:Tore.Service.RequestScopeBase.controller">
             <summary> Current controller instance about to be invoked. </summary>
+        </member>
+        <member name="M:Tore.Service.RequestScopeBase.#ctor(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            ——————————————————————————————————————————————————————————————————————————
+                      CTOR: RequestScopeBase                                            <summary>
+                      TASK:                                                             <br/>
+                            Constructs a RequestScopeBase object.                       <br/>
+                            This is called per request by ActionShell.OnActionExecuting.<br/>
+                      ARGS: context : ActionExecutingContext :
+                            Current action context.                                     </summary>
+                    ————————————————————————————————————————————————————————————————————————————
         </member>
     </members>
 </doc>
