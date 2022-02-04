@@ -3,7 +3,7 @@
     |  RequestScopeBase : Base class for request scope.  |
     ——————————————————————————————————————————————————————
 
-    © Copyright 2020 İhsan Volkan Töre.
+    © Copyright 2022 İhsan Volkan Töre.
 
 Author              : IVT.  (İhsan Volkan Töre)
 Version             : 202201070900

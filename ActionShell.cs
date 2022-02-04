@@ -3,7 +3,7 @@
     |   ActionShell : Endpoint entry exit.       |
     ——————————————————————————————————————————————
 
-    © Copyright 2020 İhsan Volkan Töre.
+    © Copyright 2022 İhsan Volkan Töre.
 
 Author              : IVT.  (İhsan Volkan Töre)
 Version             : 202201070900
@@ -12,9 +12,11 @@ License             : MIT.
 History             :
 202201070900: IVT   : added.
 ————————————————————————————————————————————————————————————————————————————*/
-using System;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Filters;
+
+using System;
+
 
 namespace Tore.Service {
 
@@ -28,7 +30,7 @@ namespace Tore.Service {
                 since it is also stored into HttpContext, it can be     <br/>
                 obtained from any place where HttpContext is accessible.</summary>
     ————————————————————————————————————————————————————————————————————————————*/
-    public class ActionShell : ActionFilterAttribute {
+    public class ActionShell : IActionFilter {
 
         private static Type _requestScopeType = typeof(RequestScopeBase); // Default.
 
@@ -88,10 +90,9 @@ namespace Tore.Service {
         }
 
         /**<inheritdoc/>*/
-        public override void OnActionExecuting(ActionExecutingContext context) {
+        public void OnActionExecuting(ActionExecutingContext context) {
             RequestScopeBase scope;
 
-            base.OnActionExecuting(context);
             scope = (RequestScopeBase)
                 Activator.CreateInstance(requestScopeType, new object[]{context});
             context.HttpContext.Items.Add("RequestScope", scope);
@@ -99,12 +100,11 @@ namespace Tore.Service {
         } 
 
         /**<inheritdoc/>*/
-        public override void OnActionExecuted(ActionExecutedContext context) {
+        public void OnActionExecuted(ActionExecutedContext context) {
             RequestScopeBase scope = fetchScope(context.HttpContext);
             leave?.Invoke(scope);
             if (scope != null)
                 scope.leftAction = true;
-            base.OnActionExecuted(context);
         }
 
     }   //  End class ActionShell.

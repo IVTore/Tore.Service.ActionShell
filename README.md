@@ -32,38 +32,30 @@ If there are action filters:<br/>
 Filter OnActionExecuting methods are called before the endpoint is invoked and,<br/>
 Filter OnActionExecuted methods are called after the endpoint is left.<br/>
 <br/>
-ActionShell class as a filter attribute:<br/>
+ActionShell class as a filter :<br/>
 
 * Constructs a developer defined object descendant of RequestScopeBase class gathering request scope data.
 * Stores the scope in HttpContext.
 * Before endpoint invocation, calls ActionShell.enter delegate if bound, with scope.
 * After endpoint completion, calls ActionShell.leave delegate if bound, with scope.
 
-
-For using it, modifications must be done before service kicks in, e.g.: in startup.cs:
+For using it, modifications must be done before the service starts responding to requests.<br/>
+For example in net 5.0 at startup.cs or in net 6.0 at program.cs:
 ```C#
-// Add this to your startup.cs usings.
+// Add this to your usings.
 
 using Tore.Service;
 
 ```
 
-Add bindings at service configure method:
+Add bindings at a convenient place in the code:
 
 ```C#
-  public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
       ...
       ActionShell.requestScopeType = typeof(DeveloperDefinedClassDescendingFromRequestScopeBase);
       ActionShell.enter = SomeClass.aStaticMethodToCallBeforeEnteringEndpoint;
       ActionShell.leave = SomeClass.aStaticMethodToCallAfterLeavingEndpoint;
       ...
-      
-      app.UseRouting();
- 
-      app.UseAuthorization();
-
-      app.UseEndpoints(endpoints => {endpoints.MapControllers();});
-  }
 ```
 
 The enter and leave methods are not mandatory.<br/>
@@ -93,9 +85,8 @@ namespace WorldDomination.Secret.Project.Controllers {
 }
 ```
 
-
-
 ## RequestScopeBase :
+
 
 To generate project oriented request information, developers must extend the RequestScopeBase class. <br/>
 It is already populated as follows : <br/>
