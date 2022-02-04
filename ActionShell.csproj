@@ -6,16 +6,15 @@
     <PackageId>Tore.Service.ActionShell</PackageId>
     <Authors>İhsan Volkan Töre</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>A standard Action Filter Attribute for .Net 5 web API. It intercepts requests, builds a developer defined request scope object and calls developer defined enter and leave methods before and after endpoint invocations respectfully.</Description>
+    <Description>A standard Action Filter Attribute for Net 5.0 web API. It intercepts requests, builds a developer defined request scope object and calls developer defined enter and leave methods before and after endpoint invocations respectfully.</Description>
     <Copyright>2022 İhsan Volkan Töre</Copyright>
     <PackageProjectUrl>https://github.com/IVTore/Tore.Service.ActionShell</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IVTore/Tore.Service.ActionShell</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Tore Service Action Filter Attribute .Net Web Api ActionShell</PackageTags>
     <PackageReleaseNotes>Comments corrected for ActionShell class definition.
-This is the last compilation for net 5.</PackageReleaseNotes>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <Version>5.0.0</Version>
+This is the last compilation for net 5.0</PackageReleaseNotes>
+    <Version>5.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
