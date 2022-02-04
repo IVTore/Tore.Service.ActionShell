@@ -12,21 +12,21 @@ License             : MIT.
 History             :
 202201070900: IVT   : added.
 ————————————————————————————————————————————————————————————————————————————*/
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
 
 namespace Tore.Service {
 
     /**———————————————————————————————————————————————————————————————————————————
         CLASS:  ActionShell.                                            <summary>
-        USAGE:  Builds a request scoped context data.
-                enter delegate is called before entry to endpoint.
-                leave delegate is called after  endpoint is run.
-                The request scope is passed to these delegates and since
-                it is also stored into HttpContext, it is accessible from the 
-                controller and even Global exception middleware in case of 
-                any exceptions.                                         </summary>
+        USAGE:                                                          <br/>
+                Builds a request scoped context data.                   <br/>
+                enter delegate is called before entry to endpoint.      <br/>
+                leave delegate is called after  endpoint is run.        <br/>
+                The request scope is passed to these delegates and      <br/>
+                since it is also stored into HttpContext, it can be     <br/>
+                obtained from any place where HttpContext is accessible.</summary>
     ————————————————————————————————————————————————————————————————————————————*/
     public class ActionShell : ActionFilterAttribute {
 

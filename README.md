@@ -5,12 +5,19 @@ Language: C#.
 Nuget package: [Tore.Service.ActionShell](https://www.nuget.org/packages/Tore.Service.ActionShell/)
 
 Dependencies: <br/>
-&emsp; net5.0 <br/>
-&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (>= 5.0.10) [Please refer to note 2 below]<br/>
+
+ActionShell v5.0.0 for net5 .<br/>
+&emsp; .net5<br/>
+&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (5.0.10) [Please refer to note 2 below]<br/>
+<br/>
+ActionShell v6.0.0+ for net6 .<br/>
+&emsp; .net6<br/>
+&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (>= 6) [Please refer to note 2 below]<br/>
+
 
 ## ActionShell :
 
-A standard action filter attribute class for .Net 5 web API <br/>
+A standard action filter attribute class for .Net web API <br/>
 
 Why?<br/>
 
