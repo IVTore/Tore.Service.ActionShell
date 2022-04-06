@@ -10,7 +10,7 @@ ActionShell v5.0.1 for net 5.0 .<br/>
 &emsp; net 5.0<br/>
 &emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (5.0.10) [Please refer to note 2 below]<br/>
 <br/>
-ActionShell v6.0.0+ for net 6.0 .<br/>
+ActionShell v6.0.1+ for net 6.0 .<br/>
 &emsp; net 6.0<br/>
 &emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (6.0.1) [Please refer to note 2 below]<br/>
 

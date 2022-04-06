@@ -30,7 +30,7 @@ namespace Tore.Service {
                 since it is also stored into HttpContext, it can be     <br/>
                 obtained from any place where HttpContext is accessible.</summary>
     ————————————————————————————————————————————————————————————————————————————*/
-    public class ActionShell : IActionFilter {
+    public class ActionShell : ActionFilterAttribute, IActionFilter {
 
         private static Type _requestScopeType = typeof(RequestScopeBase); // Default.
 
@@ -90,7 +90,7 @@ namespace Tore.Service {
         }
 
         /**<inheritdoc/>*/
-        public void OnActionExecuting(ActionExecutingContext context) {
+        public override void OnActionExecuting(ActionExecutingContext context) {
             RequestScopeBase scope;
 
             scope = (RequestScopeBase)
@@ -100,7 +100,7 @@ namespace Tore.Service {
         } 
 
         /**<inheritdoc/>*/
-        public void OnActionExecuted(ActionExecutedContext context) {
+        public override void OnActionExecuted(ActionExecutedContext context) {
             RequestScopeBase scope = fetchScope(context.HttpContext);
             leave?.Invoke(scope);
             if (scope != null)
