@@ -3,6 +3,7 @@
 Language: C#.
 
 Nuget package: [Tore.Service.ActionShell](https://www.nuget.org/packages/Tore.Service.ActionShell/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Dependencies: <br/>
 .net 7.0<br/>
