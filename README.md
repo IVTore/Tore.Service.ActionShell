@@ -5,15 +5,12 @@ Language: C#.
 Nuget package: [Tore.Service.ActionShell](https://www.nuget.org/packages/Tore.Service.ActionShell/)
 
 Dependencies: <br/>
+.net 7.0<br/>
+Microsoft.AspNetCore.Mvc.NewtonsoftJson 7.0.4+ <br/>
 
-ActionShell v5.0.1 for net 5.0 .<br/>
-&emsp; net 5.0<br/>
-&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (5.0.10) [Please refer to note 2 below]<br/>
-<br/>
-ActionShell v6.0.1+ for net 6.0 .<br/>
-&emsp; net 6.0<br/>
-&emsp; Microsoft.AspNetCore.Mvc.NewtonsoftJson (6.0.1) [Please refer to note 2 below]<br/>
+Changes in v7.0.0+:
 
+    Converted to net 7.0.
 
 ## ActionShell :
 
@@ -21,17 +18,22 @@ A standard action filter attribute class for .Net web API <br/>
 
 Why?<br/>
 
-* Bored of writing the same thing every time for services.
+* Proven to be useful in many controller scenarios. 
 * This code contains the common behaviour of an action filter attribute.
 * Having project dependent request scope data is so good.
 * I can gather any data requied and process it and/or check sessions, access caches, databases, get the IP's etc.
 <br/>
+
+
 In the multi tenant server mode (Kestrel default) each request arriving is processed in its own thread,<br/>
 The request context is built, then the target controller instance is created.<br/>
 If there are action filters:<br/>
 Filter OnActionExecuting methods are called before the endpoint is invoked and,<br/>
 Filter OnActionExecuted methods are called after the endpoint is left.<br/>
 <br/>
+
+How? <br/>
+
 ActionShell class as a filter :<br/>
 
 * Constructs a developer defined object descendant of RequestScopeBase class gathering request scope data.
@@ -40,7 +42,7 @@ ActionShell class as a filter :<br/>
 * After endpoint completion, calls ActionShell.leave delegate if bound, with scope.
 
 For using it, modifications must be done before the service starts responding to requests.<br/>
-For example in net 5.0 at startup.cs or in net 6.0 at program.cs:
+For example in program.cs:
 ```C#
 // Add this to your usings.
 
@@ -124,14 +126,7 @@ Wherever HttpContext object is accessible then scope is accessible via:
 ```
 
 
----
-
-**Notes:**<br/>
+**Note:**<br/>
 <br/>
-1] ActionShell assignments should be done at configuration.<br/>
+ActionShell assignments should be done at configuration.<br/>
 &emsp; After service starts, since system goes multithreading, do not change assignments.<br/>
-&emsp; Turkish proverb :While crossing the river, one does not switch horses...<br/>
-<br/>
-2] Why Microsoft.AspNetCore.Mvc.NewtonsoftJson? <br/>
-&emsp; Weirdly enough default http abstractions miss some methods.<br/>
-&emsp; So it saves me from a lot of class chasings and abstractions and I use it in my API's anyway.

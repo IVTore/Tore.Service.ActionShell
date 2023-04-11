@@ -1,19 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Tore.Service.ActionShell</PackageId>
     <Authors>İhsan Volkan Töre</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>A standard Action Filter Attribute for Net 6.0 web API. It intercepts requests, builds a developer defined request scope object and calls developer defined enter and leave methods before and after endpoint invocations respectfully.</Description>
-    <Copyright>2022 İhsan Volkan Töre</Copyright>
+    <Description>A standard Action Filter Attribute for Net 6.0 web API. It intercepts requests, builds a request scope object and calls enter and leave method delegates before and after endpoint invocations respectfully.</Description>
+    <Copyright>2023 İhsan Volkan Töre</Copyright>
     <PackageProjectUrl>https://github.com/IVTore/Tore.Service.ActionShell</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IVTore/Tore.Service.ActionShell</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Tore Service Action Filter Attribute .Net Web Api ActionShell</PackageTags>
-    <PackageReleaseNotes>This is net 6.0 release. Net 5.0 release is v5.0.1</PackageReleaseNotes>
-    <Version>6.0.0</Version>
+    <PackageReleaseNotes>This is net 7.0 release</PackageReleaseNotes>
+    <Version>7.0.0</Version>
+    <Nullable>enable</Nullable>
+    <Title>A standard action filter attribute class for .Net web API</Title>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>

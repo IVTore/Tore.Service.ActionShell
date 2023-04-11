@@ -3,13 +3,14 @@
     |   ActionShell : Endpoint entry exit.       |
     ——————————————————————————————————————————————
 
-    © Copyright 2022 İhsan Volkan Töre.
+    © Copyright 2023 İhsan Volkan Töre.
 
 Author              : IVT.  (İhsan Volkan Töre)
-Version             : 202201070900
+Version             : 202304111012
 License             : MIT.
 
 History             :
+202304111012: IVT   : Upgraded to .NET 7.0 with nullable enabled.
 202201070900: IVT   : added.
 ————————————————————————————————————————————————————————————————————————————*/
 using Microsoft.AspNetCore.Http;
@@ -39,7 +40,7 @@ namespace Tore.Service {
           TASK:  Method delegate type to call before and after endpoint.    <br/>
           ARGS:  scope: RequestScopeBase : Current request scope instance.  </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public delegate void ActionShellDelegate(RequestScopeBase scope);
+        public delegate void ActionShellDelegate(RequestScopeBase? scope);
        
         /**———————————————————————————————————————————————————————————————————————————
           PROP: enter.                                                  <summary>
@@ -47,14 +48,15 @@ namespace Tore.Service {
                 Method delegate type must be ActionShellDelegate.       <br/>
                 The method should be static.                            </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public static ActionShellDelegate enter {get; set;}
+        public static ActionShellDelegate? enter {get; set;}
+
         /**———————————————————————————————————————————————————————————————————————————
           PROP: leave.                                                  <summary>
           TASK: Method delegate to call after leaving the endpoint.     <br/>
                 Method delegate type must be ActioShellDelegate.        <br/>
                 The method should be static.                            </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public static ActionShellDelegate leave {get; set;}
+        public static ActionShellDelegate? leave {get; set;}
 
         /**———————————————————————————————————————————————————————————————————————————
           PROP: requestScopeType.                                       <summary>
@@ -83,17 +85,17 @@ namespace Tore.Service {
           ARGS: httpContext : HttpContext      : Current http context.  <br/>
           RETV:             : RequestScopeBase : Scope if any or null.  </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public static RequestScopeBase fetchScope(HttpContext httpContext){
+        public static RequestScopeBase? fetchScope(HttpContext httpContext){
             if (!httpContext.Items.ContainsKey("RequestScope"))
                 return null;
-            return (RequestScopeBase)httpContext.Items["RequestScope"];
+            return (RequestScopeBase?) httpContext.Items["RequestScope"] ?? null;
         }
 
         /**<inheritdoc/>*/
         public override void OnActionExecuting(ActionExecutingContext context) {
-            RequestScopeBase scope;
+            RequestScopeBase? scope;
 
-            scope = (RequestScopeBase)
+            scope = (RequestScopeBase?)
                 Activator.CreateInstance(requestScopeType, new object[]{context});
             context.HttpContext.Items.Add("RequestScope", scope);
             enter?.Invoke(scope);
@@ -101,7 +103,7 @@ namespace Tore.Service {
 
         /**<inheritdoc/>*/
         public override void OnActionExecuted(ActionExecutedContext context) {
-            RequestScopeBase scope = fetchScope(context.HttpContext);
+            RequestScopeBase? scope = fetchScope(context.HttpContext);
             leave?.Invoke(scope);
             if (scope != null)
                 scope.leftAction = true;
