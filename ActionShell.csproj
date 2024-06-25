@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Tore.Service.ActionShell</PackageId>
     <Authors>İhsan Volkan Töre</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Description>A standard Action Filter Attribute for Net 6.0 web API. It intercepts requests, builds a request scope object and calls enter and leave method delegates before and after endpoint invocations respectfully.</Description>
-    <Copyright>2023 İhsan Volkan Töre</Copyright>
+    <Description>A standard Action Filter Attribute for .Net web API. It intercepts requests, builds a request scope object and calls enter and leave method delegates before and after endpoint invocations respectfully.</Description>
+    <Copyright>2024 İhsan Volkan Töre</Copyright>
     <PackageProjectUrl>https://github.com/IVTore/Tore.Service.ActionShell</PackageProjectUrl>
     <RepositoryUrl>https://github.com/IVTore/Tore.Service.ActionShell</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Tore Service Action Filter Attribute .Net Web Api ActionShell</PackageTags>
-    <PackageReleaseNotes>This is net 7.0 release</PackageReleaseNotes>
-    <Version>7.0.0</Version>
+    <PackageReleaseNotes>This is net 8.0 release</PackageReleaseNotes>
+    <Version>8.0.0</Version>
     <Nullable>enable</Nullable>
     <Title>A standard action filter attribute class for .Net web API</Title>
     <IncludeSymbols>True</IncludeSymbols>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\IVT\Desktop 2\GitHub\Tore\Service\ActionShell\ActionShell.xml</DocumentationFile>
+    <DocumentationFile>D:\Projects\GitHub\Tore\Service\ActionShell\bin\Release\net7.0\ActionShell.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

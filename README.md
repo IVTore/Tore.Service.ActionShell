@@ -7,8 +7,13 @@ Nuget package: [Tore.Service.ActionShell](https://www.nuget.org/packages/Tore.Se
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Dependencies: <br/>
-.net 7.0<br/>
+.net 8.0<br/>
 Microsoft.AspNetCore.Mvc.NewtonsoftJson 7.0.4+ <br/>
+
+Changes in v8.0.0+:
+
+    Converted to net 8.0.
+    Nullability problems resolved.
 
 Changes in v7.0.0+:
 
@@ -23,7 +28,7 @@ Why?<br/>
 * Proven to be useful in many controller scenarios. 
 * This code contains the common behaviour of an action filter attribute.
 * Having project dependent request scope data is so good.
-* I can gather any data requied and process it and/or check sessions, access caches, databases, get the IP's etc.
+* Can gather any data requied and process it and/or check sessions, access caches, databases, get the IP's etc.
 <br/>
 
 

@@ -28,20 +28,20 @@ namespace Tore.Service {
     public class RequestScopeBase {
 
         /// <summary> Router Path (request path). </summary>
-        public string routerPath { get; set; }
+        public string routerPath { get; set; } = "";
     
         /// <summary> Action name. </summary>
-        public string actionName { get; set; }
+        public string actionName { get; set; } = "";
         
         /// <summary> Model validity status. </summary>
-        public bool modelValid { get; set; }
+        public bool modelValid { get; set; } = false;
         
         /// <summary> Left action. </summary>
         public bool leftAction { get; set; } = false; 
         
         /// <summary> Current controller instance about to be invoked. </summary>
         [JsonIgnore]                                    // Maybe logged in json.
-        public ControllerBase controller { get; set; }
+        public ControllerBase? controller { get; set; } = null;
 
         /**——————————————————————————————————————————————————————————————————————————
           CTOR: RequestScopeBase                                            <summary>
@@ -51,7 +51,9 @@ namespace Tore.Service {
           ARGS: context : ActionExecutingContext :
                 Current action context.                                     </summary>
         ————————————————————————————————————————————————————————————————————————————*/
-        public RequestScopeBase(ActionExecutingContext context){
+        public RequestScopeBase(ActionExecutingContext? context){
+            if (context == null)
+                return;
             routerPath = context.HttpContext.Request.Path;
             actionName = context.ActionDescriptor.RouteValues["Action"] ?? "";
             modelValid = context.ModelState.IsValid;

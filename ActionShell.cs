@@ -96,7 +96,7 @@ namespace Tore.Service {
             RequestScopeBase? scope;
 
             scope = (RequestScopeBase?)
-                Activator.CreateInstance(requestScopeType, new object[]{context});
+                Activator.CreateInstance(requestScopeType, [context]);
             context.HttpContext.Items.Add("RequestScope", scope);
             enter?.Invoke(scope);
         } 
